@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="summaryContainer">
+  <!-- Thank you for ur order! header -->
+  <!-- your order number is random number letter thing -->
+  <!-- expected to arrive (2 days later) - optional-->
+  <h2>Thank You For Your Order! </h2>{{ address.full_name }}
+  <p style="text-align: center;">Your order number is [{{order_num}}] ordered on {{today}}<br>Your items are expected to arrive on {{arrival}}</p>
+
+  <!-- Order summary header -->
+  <!-- Add in items and costs in table -->
+  <!-- Last 5 rows are for subtotal {put the cost from routes into a session and reference on this page), shipping discount, and tax, (which are all 0) and grandtotal is the same as subtotal -->
+  <h1>ORDER SUMMARY</h1>
+  <table class="cart">
+    <tr>
+      <th><i>Item</i></th>
+      <th><i>Qty</i></th>
+      <th><i>Sub-Total</i></th>
+    </tr>
+    {% for item in basket %}
+    {% if quantities %}
+      {% if quantities.get(item.id|string) != None%}
+        {% set quantity = quantities.get(item.id|string) %}
+        {% set value = quantities.get(item.id|string)|float %}
+      {% else %}
+        {% set quantity = 1%}
+        {% set value = 1%}
+      {% endif %}
+    {% else %}
+      {% set quantity = 1%}
+      {% set value = 1%}
+    {% endif %}
+    <tr>
+      <td>{{item.title}}</td>
+      <td>x{{quantity}}</td>
+      <td>£{{ "%.2f"|format(item.price * value)}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <td>Discount</td>
+      <td>£0.00</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Shipping</td>
+      <td>£0.00</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Total</td>
+      <td>£{{ "%.2f"|format(total)}}</td>
+    </tr>
+  </table>
+
+  <!-- Put all in container to make it a form-->
+
+  <div>
+    {% if address != None %}
+    <h3>SHIPPING TO</h3>
+    <address>
+      {{ address.address_1 }}<br>
+      {% if address.address_2 != None %}
+      {{ address.address_2 }} <br>
+      {% else %}
+      {% endif %}
+      {{ address.city_name }}<br>
+      {{ address.county_name }}<br>
+      {{ address.post_code }}<br></address>
+    {% else %}
+    <h3>NO SHIPPING ADDRESS</h3>
+    {% endif %}
+  </div>
+
+  <h3>ORDER QUESTIONS?</h3>
+  <p>For updates on your items, we will contact you on the number: {% if address.tel_number %} <a href="" style="color: royalblue;">{{ address.tel_number }}{% else %}[No number found]{% endif %}.</a>
+  <br>For enquiries about your order please email us at <a href="" style="color: royalblue;">notARealEmail@emailprovider.com</a> and we will be happy to help with anything we can. <br> To track your order please find the postal tracking link in your confirmation email{% if user.email %} sent to <a href="" style="color: royalblue;">{{user.email}}</a>{% else %}[No email found]{% endif %}.
+  </p>
+</div>
+
+{% endblock content %}

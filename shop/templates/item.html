@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+  <div class="column side">
+    <h2></h2>
+    <p></p>
+  </div>
+  <div class="column middle">
+    <div class="Item">
+      <img src="/static/img/{{item.image_file}}" alt="Error" style="max-width: 100px;">
+      <h2>{{item.title}}</h2>
+      <p>{{item.content}}</p><br>
+      <p class="price">£{{"%.2f"|format(item.price)}}</p>
+      <br>
+    </div>
+    <br>
+    <h2>REVIEWS</h2>
+    {% if reviews %}
+      {% for review in reviews %}
+        <div class="Item">
+          <h3>Review by: {{review.author_id}}</h3>
+          <p>{{review.date.date()}}</p>
+          <p>{{review.content}}</p>
+          <p>{{review.rating}}/5 stars</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No reviews yet <br> Be the first to leave a review!</p>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+      <a class="review" href="{{url_for('leave_review')}}">Write a review</a>
+    {% else %}
+      <a class="review" href="{{url_for('login')}}">Login to leave a review</a>
+    {% endif %}
+
+  <div>
+  
+  <div class="column side">
+    <h2></h2>
+    <p></p>
+  </div>
+</div>
+{% endblock content %}

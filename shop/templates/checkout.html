@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="paralax4"></div>
+<div class="card">
+	<h1>CHECKOUT</h1>
+	<form method="POST" action="" class="checkout_form">
+		{{ form.csrf_token }}
+		<p>{{ form.name.label }}</p>
+		<p >{{ form.name }}</p>
+		<p>{{ form.card_no.label }}</p>
+		<p>{{ form.card_no }}</p>
+		<p id="submit"><input type="submit" value="Submit" style="color:black; font-size: 16px;"></p>
+	</form>
+</div>
+
+	{% for error in form.card_no.errors %}
+		<p><span  style="color: red;">[{{ error }}]</span></p>
+	{% endfor %}
+
+{% endblock %}

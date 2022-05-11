@@ -1,0 +1,5 @@
+{% extends "layout.html" %}
+{% block content%}
+<p id="checkout_success" style="color:blue; text-align: center;">[Purchase Complete]</p>
+<a href="{{url_for('order_summary')}}" class="add_to_cart" style="position: absolute; left: 44%;">View order summary</a>
+{% endblock %}

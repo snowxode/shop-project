@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+  <div class="column side">
+    <div class="paralax2">
+      <div class="cfKey">
+        <h3>Carbon footprint key</h3>
+        <img src="/static/img/scale.jpg" style="max-height: 400px;">
+      </div>
+    </div>
+  </div>
+  <div class="column middle">
+    <div class="container">
+
+      <h1>Store Page</h1>
+      {% if current_user.is_authenticated %}
+        <p>Welcome, {{current_user}}</p>
+      {% endif %}
+        <p>Snowy's Ski Shop is a place for ski-enthusiasts all across the globe to purchase the highest quality equipment for their skiing journeys.</p>
+        <p>Feel free to browse our shop to find the right items for you!</p>
+        <p>Our company has been around for about 5 days and offer much better stuff than any of our competition.
+        You should definitely buy from our shop, not theirs. Please buy from our shop. Im begging you.</p>
+        <p>Aside from our great products we also offer exceptional customer service, all the questions you can ask can be answered by contacting us at: <a href="">notARealEmail@emailprovider.com</a>. We look forward to hearing from you!</p>
+        <p>For our refund policy, please see... nothing as we dont have one because we are not real.</p>
+
+      <h1>SHOP</h1>
+      <form method="POST" action="{{ url_for('shop') }}">
+        <select name="sort" id="sort" value="sort" onchange="this.form.submit()" class="sort">
+          <option disabled selected=selected>Sort by</option>
+          <option value="price_high">£ High-Low</option>
+          <option value="price_low">£ Low-High</option>
+          <option value="eco_low">Carbon Footprint</option>
+        </select>
+      </form>
+      {% for item in items|sort(attribute=sort[0],reverse=sort[1])%}
+      <div class="Item">
+        <div class="gallery_item">
+          <br>
+          <form action="{{url_for('current_item')}}" method="POST" class="details">
+            <input type="hidden" name="item_id" value={{item.id}}>
+            <button type="submit" class="details"><h1><span class="item_name">{{item.title}}</span></h1></button>
+          </form>
+          <img src="/static/img/{{item.image_file}}" alt="Error not found" style="max-width: 200px;" id="item_img">
+          <p>£<span class="item_price">{{ "%.2f"|format(item.price)}}</span></p>
+          <p><span class="item_description">{{item.content}}</span></p>
+          <p>Carbon footprint: {{item.cbFootprint}}/10</p>
+          <form method="POST" action="{{url_for('add_to_cart')}}">
+            <input type="hidden" name="item_id" value={{item.id}}>
+            <input type="submit" class="add_to_cart" value="Add to cart">
+          </form><br>
+        </div>
+        <br>
+      </div>
+      <br>
+    	{% endfor %}
+    </div>
+  </div>
+  
+  <div class="column side">
+    <div class="paralax3">
+      
+    </div>
+    <h2></h2>
+    <p></p>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{url_for('static', filename='img/Snow-Logo.png')}}">
+  <title>shop</title>
+</head>
+<body>
+  <header class = "site-header">
+    <img src="/static/img/Snow-Logo.png">
+    <nav class = "navbar">
+      <h1>Snowy's Ski Shop</h1>  
+      <ul>   
+        <li><a href="{{ url_for('shop') }}"> Home </a>&nbsp  </li>  
+        <li><a id="register" href="{{ url_for('register')}}">Register</a>&nbsp </li>
+        {% if current_user.is_authenticated %}
+            <li><a id="logout" href="{{ url_for('logout') }}">Logout</a>&nbsp  </li>
+        {% else %}
+            <li ><a id="login" href="{{ url_for('login') }}">Login</a>&nbsp  </li>
+        {% endif %}
+        <li><a id="show_cart" href="{{ url_for('cart') }}">My Cart</a>&nbsp </li>
+      </ul>  
+    </nav>  
+  </header>
+  {% with x = get_flashed_messages() %}
+    {% if x %}
+      {% for y in x %}
+      <div class="flash">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{ y }}
+      </div> 
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

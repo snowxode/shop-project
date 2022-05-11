@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="paralax4"></div>
+<div class = "card">
+  <h1>LOGIN</h1>
+  <form method="POST" action="{{url_for('login')}}">
+    {{ form.csrf_token }}
+    <p>{{ form.username.label }}</p>
+    <p>{{ form.username(id_="username") }}</p>
+    <p>{{ form.password.label }}</p>
+    <p>{{ form.password(id_="password") }}</p>
+    <input type="submit" value="Login">
+  </form>
+</div>
+
+{% endblock content %}

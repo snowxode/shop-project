@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="column side">
+    <div class="paralax2"></div>
+  </div>
+  <div class="column middle">
+<div class="container">
+	<h1>HOMEPAGE</h1>
+	{% if current_user.is_authenticated %}
+		<p>Welcome, {{current_user}}</p>
+	{% endif %}
+		<p>Snowy's Ski Shop is a place for ski-enthusiasts all across the globe to purchase the highest quality equipment for their skiing journeys.</p>
+		<p>Feel free to browse our shop to find the right items for you!</p>
+		<p>Our company has been around for about 5 days and offer much better stuff than any of our competition.
+		You should definitely buy from our shop, not theirs. Please buy from our shop. Im begging you.</p>
+		<p>Aside from our great products we also offer exceptional customer service, all the questions you can ask can be answered by contacting us at: <a href="">notARealEmail@emailprovider.com</a>. We look forward to hearing from you!</p>
+		<p>For our refund policy, please see... nothing as we dont have one because we are not real.</p>
+</div>
+</div>
+<div class="column side">
+    <div class="paralax3">
+      
+    </div>
+    <h2></h2>
+    <p></p>
+ </div>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="paralax4">
+<div class = "card2">
+  <h3>Enter Shipping Address</h3>
+  <form method="POST" action="">
+    {{ form.csrf_token }}
+    <p>{{ form.full_name.label }}</p>
+    <p>{{ form.full_name }}</p>
+    <p>{{ form.address_1.label }}</p>
+    <p>{{ form.address_1(value='Line 1') }}</p>
+    <p>{{ form.address_2(value='Line 2') }}</p>
+    <p>{{ form.city_name.label }}</p>
+    <p>{{ form.city_name }}</p>
+    <p>{{ form.county_name.label }}</p>
+    <p>{{ form.county_name }}</p>
+    <p>{{ form.post_code.label }}</p>
+    <p>{{ form.post_code }}</p>
+    <p>{{ form.tel_number.label }}</p>
+    <p>{{ form.tel_number }}</p>
+
+    <input type="submit" value="Submit">
+  </form>
+  {% for error in form.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+  {% for error in form.tel_number.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock content %}

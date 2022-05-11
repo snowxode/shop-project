@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="paralax4"></div>
+<div class = "card">
+  <h1>REGISTER</h1>
+    <form method="POST" action="">
+      {{ form.csrf_token }}
+      <p>{{ form.username.label }}</p>
+      <p>{{ form.username(id_="username_new") }}</p>
+      <p>{{ form.email.label}}</p>
+      <p>{{form.email}}</p>
+      <p>{{ form.password.label }}</p>
+      <p>{{ form.password(id_="password_new") }}</p>
+      <p>{{ form.confirm_password.label }}</p>
+      <p>{{ form.confirm_password(id_="password_confirm")}}</p>
+      <input id="register" type="submit" value="Register"><br>
+      <small>Already Have An Account? <a href = '{{url_for("login")}}'>Sign In</a></small>
+    </form>
+</div>
+{% for error in form.username.errors %}
+  <span style="color: red;">[{{ error }}]</span>
+{% endfor %}
+{% for error in form.password.errors %}
+  <span style="color: red;">[{{ error }}]</span>
+{% endfor %}
+
+{% endblock content %}

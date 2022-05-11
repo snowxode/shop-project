@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="paralax4"></div>
+<div class = "card">
+  <h1>Leave a review</h1>
+  <form method="POST" action="">
+    {{ form.csrf_token }}
+    <p>{{ form.rating.label }}</p>
+    <p>{{ form.rating }}</p>
+    <p>{{ form.words.label }}</p>
+    <p>{{ form.words}}</p>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock content %}
